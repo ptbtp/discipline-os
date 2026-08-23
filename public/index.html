@@ -1,93 +1,990 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Discipline OS</title>
 
 <style>
-body {
-  font-family: Tahoma, Arial;
-  background: #101827;
-  color: white;
-  padding: 30px;
+
+*{
+box-sizing:border-box;
 }
 
-.card {
-  background: #1c2b44;
-  padding: 20px;
-  margin: 15px 0;
-  border-radius: 15px;
+body{
+margin:0;
+font-family:tahoma,Arial;
+background:#0f172a;
+color:#fff;
 }
 
-button {
-  padding: 10px 20px;
-  border: 0;
-  border-radius: 10px;
-  cursor: pointer;
+.app{
+display:flex;
+min-height:100vh;
 }
 
-pre {
-  background: #080d16;
-  padding: 15px;
-  border-radius: 10px;
+
+.sidebar{
+width:250px;
+background:#111827;
+padding:20px;
+position:fixed;
+right:0;
+top:0;
+bottom:0;
 }
+
+
+.logo{
+font-size:25px;
+font-weight:bold;
+text-align:center;
+margin-bottom:30px;
+}
+
+
+.menu button{
+
+width:100%;
+padding:14px;
+margin:6px 0;
+border:0;
+border-radius:12px;
+background:#1f2937;
+color:white;
+cursor:pointer;
+text-align:right;
+
+}
+
+
+.menu button:hover{
+background:#2563eb;
+}
+
+
+
+.main{
+
+margin-right:250px;
+padding:25px;
+width:100%;
+
+}
+
+
+
+.header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#1e293b;
+padding:20px;
+border-radius:20px;
+
+}
+
+
+
+.card{
+
+background:#1e293b;
+border-radius:20px;
+padding:20px;
+margin-top:20px;
+
+}
+
+
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+
+}
+
+
+
+.stat{
+
+background:#334155;
+padding:20px;
+border-radius:15px;
+text-align:center;
+
+}
+
+
+.stat h2{
+
+margin:10px;
+font-size:35px;
+
+}
+
+
+
+input,textarea{
+
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:10px;
+border:0;
+background:#334155;
+color:white;
+
+}
+
+
+
+button.action{
+
+background:#2563eb;
+color:white;
+border:0;
+padding:12px 20px;
+border-radius:12px;
+cursor:pointer;
+
+}
+
+
+
+.page{
+
+display:none;
+
+}
+
+
+.page.active{
+
+display:block;
+
+}
+
+
+
+.item{
+
+background:#334155;
+padding:15px;
+border-radius:12px;
+margin:10px 0;
+
+}
+
+
+
+.badge{
+
+background:#2563eb;
+padding:5px 12px;
+border-radius:20px;
+
+}
+
+
+
+@media(max-width:700px){
+
+.sidebar{
+
+position:relative;
+width:100%;
+height:auto;
+
+}
+
+.app{
+
+display:block;
+
+}
+
+.main{
+
+margin-right:0;
+
+}
+
+}
+
+
 </style>
 
 </head>
 
+
 <body>
 
-<h1>Discipline OS</h1>
 
-<div class="card">
-<h2>وضعیت سرور</h2>
-<button onclick="health()">تست اتصال</button>
-<p id="status">---</p>
+<div class="app">
+
+
+<aside class="sidebar">
+
+
+<div class="logo">
+🧠 Discipline OS
 </div>
 
 
-<div class="card">
-<h2>اطلاعات سیستم</h2>
-<button onclick="state()">نمایش وضعیت</button>
-<pre id="out"></pre>
+
+<div class="menu">
+
+<button onclick="openPage('dashboard')">
+🏠 داشبورد
+</button>
+
+
+<button onclick="openPage('blocks')">
+🧱 بلوک‌ها
+</button>
+
+
+<button onclick="openPage('tasks')">
+✅ وظایف
+</button>
+
+
+<button onclick="openPage('scores')">
+⭐ امتیازها
+</button>
+
+
+<button onclick="openPage('alarms')">
+⏰ آلارم‌ها
+</button>
+
+
+<button onclick="openPage('history')">
+📜 تاریخچه
+</button>
+
+
+<button onclick="openPage('settings')">
+⚙️ تنظیمات
+</button>
+
 </div>
+
+
+</aside>
+
+
+
+
+
+<main class="main">
+
+
+
+<div class="header">
+
+<h1>
+Discipline OS
+</h1>
+
+
+<span class="badge" id="online">
+Connecting...
+</span>
+
+
+</div>
+<section id="dashboard" class="page active">
+
+<div class="card">
+
+<h2>📊 داشبورد امروز</h2>
+
+<div class="grid">
+
+
+<div class="stat">
+<h2 id="blockCount">0</h2>
+<p>بلوک‌ها</p>
+</div>
+
+
+<div class="stat">
+<h2 id="taskCount">0</h2>
+<p>وظایف</p>
+</div>
+
+
+<div class="stat">
+<h2 id="totalScore">0</h2>
+<p>امتیاز کل</p>
+</div>
+
+
+<div class="stat">
+<h2 id="changeCount">0</h2>
+<p>تغییرات</p>
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<section id="blocks" class="page">
+
+
+<div class="card">
+
+<h2>🧱 مدیریت بلوک‌ها</h2>
+
+
+<input id="blockTitle" placeholder="نام بلوک">
+
+
+<input id="blockPercent" placeholder="درصد انجام">
+
+
+<input id="blockDuration" placeholder="مدت زمان">
+
+
+<button class="action" onclick="createBlock()">
+ساخت بلوک
+</button>
+
+
+<div id="blockList"></div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="tasks" class="page">
+
+
+<div class="card">
+
+
+<h2>✅ وظایف</h2>
+
+
+<input id="taskTitle" placeholder="وظیفه جدید">
+
+
+<button class="action" onclick="createTask()">
+افزودن وظیفه
+</button>
+
+
+<div id="taskList"></div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section id="scores" class="page">
+
+
+<div class="card">
+
+
+<h2>⭐ سیستم امتیاز</h2>
+
+
+<div class="grid">
+
+
+<div class="stat">
+
+<h2 id="focusScore">
+0
+</h2>
+
+تمرکز
+
+</div>
+
+
+<div class="stat">
+
+<h2 id="qualityScore">
+0
+</h2>
+
+کیفیت
+
+</div>
+
+
+
+<div class="stat">
+
+<h2 id="disciplineScore">
+0
+</h2>
+
+انضباط
+
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<button class="action" onclick="addScore()">
+ثبت امتیاز
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="alarms" class="page">
+
+
+<div class="card">
+
+
+<h2>⏰ آلارم‌ها</h2>
+
+
+<input id="alarmText" placeholder="متن آلارم">
+
+
+<input id="alarmTime" placeholder="زمان">
+
+
+<button class="action" onclick="createAlarm()">
+ساخت آلارم
+</button>
+
+
+<div id="alarmList"></div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="history" class="page">
+
+
+<div class="card">
+
+
+<h2>📜 تاریخچه</h2>
+
+
+<div id="historyList"></div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="settings" class="page">
+
+
+<div class="card">
+
+
+<h2>⚙️ تنظیمات</h2>
+
+
+<input id="userName" placeholder="نام">
+
+
+<input id="timezone" placeholder="Timezone">
+
+
+<button class="action" onclick="saveSettings()">
+ذخیره
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
 
 
 <script>
 
-async function health(){
 
-  try {
+const API="";
 
-    let r = await fetch("/health");
-    let x = await r.json();
 
-    document.getElementById("status").innerHTML =
-    "✅ فعال - " + x.node;
 
-  }
+function openPage(id){
 
-  catch {
 
-    document.getElementById("status").innerHTML =
-    "❌ خطا";
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
 
-  }
+
+document.getElementById(id)
+.classList.add("active");
+
 
 }
 
 
-async function state(){
 
-  let r = await fetch("/api/state");
-  let x = await r.json();
 
-  document.getElementById("out").textContent =
-  JSON.stringify(x,null,2);
+
+
+async function loadData(){
+
+
+const res=await fetch(
+API+"/api/state"
+);
+
+
+const data=await res.json();
+
+
+
+document.getElementById("online")
+.innerText="Online ✅";
+
+
+
+document.getElementById("blockCount")
+.innerText=data.blocks.length;
+
+
+document.getElementById("taskCount")
+.innerText=data.tasks.length;
+
+
+document.getElementById("changeCount")
+.innerText=data.stats.changes;
+
+
+document.getElementById("focusScore")
+.innerText=data.scores.focus || 0;
+
+
+document.getElementById("qualityScore")
+.innerText=data.scores.quality || 0;
+
+
+document.getElementById("disciplineScore")
+.innerText=data.scores.discipline || 0;
+
+
+document.getElementById("totalScore")
+.innerText=
+(data.scores.focus||0)+
+(data.scores.quality||0)+
+(data.scores.discipline||0);
+
+
+
+renderBlocks(data.blocks);
+
+renderTasks(data.tasks);
+
+renderAlarms(data.alarms);
+
+renderHistory(data.history);
+
 
 }
+async function createBlock(){
+
+const block={
+
+title:
+document.getElementById("blockTitle").value,
+
+percent:
+Number(document.getElementById("blockPercent").value),
+
+duration:
+Number(document.getElementById("blockDuration").value)
+
+};
+
+
+await fetch(
+API+"/api/block",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:
+JSON.stringify(block)
+
+});
+
+
+loadData();
+
+}
+
+
+
+
+async function createTask(){
+
+const task={
+
+title:
+document.getElementById("taskTitle").value
+
+};
+
+
+await fetch(
+API+"/api/task",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:
+JSON.stringify(task)
+
+});
+
+
+loadData();
+
+}
+
+
+
+
+
+async function addScore(){
+
+await fetch(
+API+"/api/score",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:
+JSON.stringify({
+
+focus:1,
+
+quality:1,
+
+discipline:1
+
+})
+
+});
+
+
+loadData();
+
+}
+
+
+
+
+
+async function createAlarm(){
+
+const alarm={
+
+text:
+document.getElementById("alarmText").value,
+
+time:
+document.getElementById("alarmTime").value
+
+};
+
+
+await fetch(
+API+"/api/alarm",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:
+JSON.stringify(alarm)
+
+});
+
+
+loadData();
+
+}
+
+
+
+
+
+async function saveSettings(){
+
+const settings={
+
+name:
+document.getElementById("userName").value,
+
+timezone:
+document.getElementById("timezone").value
+
+};
+
+
+await fetch(
+API+"/api/settings",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:
+JSON.stringify(settings)
+
+});
+
+
+loadData();
+
+}
+
+
+
+
+
+function renderBlocks(list){
+
+document.getElementById("blockList").innerHTML=
+
+list.length ?
+
+list.map(b=>
+
+`
+
+<div class="item">
+
+<b>${b.title || "بدون نام"}</b>
+
+<br>
+
+درصد:
+${b.percent || 0}%
+
+<br>
+
+زمان:
+${b.duration || 0}
+
+</div>
+
+`
+
+).join("")
+
+:
+
+"بدون بلوک";
+
+}
+
+
+
+
+
+function renderTasks(list){
+
+document.getElementById("taskList").innerHTML=
+
+list.length ?
+
+list.map(t=>
+
+`
+
+<div class="item">
+
+${t.title}
+
+<br>
+
+وضعیت:
+${t.done ? "انجام شده ✅":"باز"}
+
+</div>
+
+`
+
+).join("")
+
+:
+
+"بدون وظیفه";
+
+}
+
+
+
+
+
+function renderAlarms(list){
+
+document.getElementById("alarmList").innerHTML=
+
+list.length ?
+
+list.map(a=>
+
+`
+
+<div class="item">
+
+${a.text}
+
+<br>
+
+${a.time}
+
+</div>
+
+`
+
+).join("")
+
+:
+
+"بدون آلارم";
+
+}
+
+
+
+
+
+function renderHistory(list){
+
+document.getElementById("historyList").innerHTML=
+
+list.length ?
+
+list.slice(-20).reverse().map(h=>
+
+`
+
+<div class="item">
+
+${h.action}
+
+<br>
+
+${h.time}
+
+</div>
+
+`
+
+).join("")
+
+:
+
+"بدون تاریخچه";
+
+}
+
+
+
+
+
+loadData();
+
 
 </script>
 
+
+</main>
+
+
+</div>
+
+
 </body>
+
 </html>
+</div>
