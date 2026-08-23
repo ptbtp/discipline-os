@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Discipline OS</title>
+
+<style>
+body {
+  font-family: Tahoma, Arial;
+  background: #101827;
+  color: white;
+  padding: 30px;
+}
+
+.card {
+  background: #1c2b44;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+pre {
+  background: #080d16;
+  padding: 15px;
+  border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Discipline OS</h1>
+
+<div class="card">
+<h2>وضعیت سرور</h2>
+<button onclick="health()">تست اتصال</button>
+<p id="status">---</p>
+</div>
+
+
+<div class="card">
+<h2>اطلاعات سیستم</h2>
+<button onclick="state()">نمایش وضعیت</button>
+<pre id="out"></pre>
+</div>
+
+
+<script>
+
+async function health(){
+
+  try {
+
+    let r = await fetch("/health");
+    let x = await r.json();
+
+    document.getElementById("status").innerHTML =
+    "✅ فعال - " + x.node;
+
+  }
+
+  catch {
+
+    document.getElementById("status").innerHTML =
+    "❌ خطا";
+
+  }
+
+}
+
+
+async function state(){
+
+  let r = await fetch("/api/state");
+  let x = await r.json();
+
+  document.getElementById("out").textContent =
+  JSON.stringify(x,null,2);
+
+}
+
+</script>
+
+</body>
+</html>
