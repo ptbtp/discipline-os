@@ -1,0 +1,14 @@
+{
+  "blocks": [],
+  "tasks": [],
+  "alarms": [],
+  "scores": {
+    "daily": 0,
+    "quality": 0,
+    "discipline": 0
+  },
+  "settings": {
+    "timezone": "UTC",
+    "name": "User"
+  }
+}
