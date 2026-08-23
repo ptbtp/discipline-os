@@ -1,6 +1,7 @@
 {
   "name": "discipline-os",
   "version": "1.0.0",
+  "description": "Discipline OS MCP Server",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
